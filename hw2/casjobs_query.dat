@@ -1,0 +1,22 @@
+SELECT ra,dec,g,r, flags_r 
+FROM Star 
+WHERE 
+ra BETWEEN 0 and 360 AND dec BETWEEN -90 and 90
+AND ((flags_r & 0x10000000) != 0)
+
+AND ((flags_r & 0x8100000c00a4) = 0)
+
+
+AND (((flags_r & 0x400000000000) = 0) or (psfmagerr_r <= 0.2))
+
+
+AND (((flags_r & 0x100000000000) = 0) or (flags_r & 0x1000) = 0)
+
+
+AND 20 < r
+AND r < 22
+AND g - r < 0.4 
+
+  
+INTO mydb.allsky
+
